@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colour tokens. Light is the brand default; dark follows the device setting. */
+:root {
+  --c-paper: 251 249 244;
+  --c-ivory: 243 238 227;
+  --c-card: 255 253 249;
+  --c-ink: 43 43 42;
+  --c-ink-soft: 96 94 89;
+  --c-line: 224 217 203;
+  --c-forest: 47 74 58;
+  --c-forest-deep: 31 51 40;
+  --c-on-forest: 251 249 244;
+  --c-sage: 214 222 208;
+  --c-amber: 138 94 22;
+  --c-amber-soft: 246 236 214;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-paper: 24 26 24;
+    --c-ivory: 33 36 33;
+    --c-card: 30 33 30;
+    --c-ink: 236 232 223;
+    --c-ink-soft: 172 168 159;
+    --c-line: 60 64 59;
+    --c-forest: 140 178 152;
+    --c-forest-deep: 168 200 178;
+    --c-on-forest: 20 26 22;
+    --c-sage: 44 58 49;
+    --c-amber: 226 184 108;
+    --c-amber-soft: 56 47 30;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --c-paper: 24 26 24;
+  --c-ivory: 33 36 33;
+  --c-card: 30 33 30;
+  --c-ink: 236 232 223;
+  --c-ink-soft: 172 168 159;
+  --c-line: 60 64 59;
+  --c-forest: 140 178 152;
+  --c-forest-deep: 168 200 178;
+  --c-on-forest: 20 26 22;
+  --c-sage: 44 58 49;
+  --c-amber: 226 184 108;
+  --c-amber-soft: 56 47 30;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 5rem); }
+body {
+  margin: 0;
+  background: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
+  font-family: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Fills the phone status-bar area behind the sticky header */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 50;
+  background: rgb(var(--c-paper) / 0.92);
+}
+img, svg { max-width: 100%; }
+:focus-visible { outline: 2px solid rgb(var(--c-forest)); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-forest text-on-forest hover:bg-forest-deep; }
+  .btn-quiet { @apply btn border border-line bg-card text-ink hover:border-forest hover:text-forest; }
+  .field-label { @apply block text-sm font-medium text-ink; }
+  .field { @apply mt-1.5 w-full rounded-lg border border-line bg-card px-3 py-2.5 text-ink placeholder:text-ink-soft/70 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20; }
+  .h-display { @apply font-display font-semibold tracking-tight text-ink; }
+}
+
+@keyframes ev-progress { 0% { transform: translateX(-100%) } 100% { transform: translateX(300%) } }
